@@ -25,11 +25,14 @@ The backend is designed to support a full-featured MERN stack application, handl
 </ul>
 
 
-<h2>Future Improvements</h2>
+  <h2>Future Improvements</h2>
 
 <ul>
-  <li>Add filtering to GET requests</li>
-  <li>Role-based access for example : admin, agent , client</li>
+  <li>Add property filtering and search</li>
+  <li>Display map previews using Mapbox</li>
+  <li>User roles (admin, agent, buyer)</li>
+  <li>Add multi-image gallery </li>
 </ul>
 
-<h2>
+<h2>Credits</h2>
+<p> Developed by MJ with the guidance of  the lead instructor Omar Kamal , the associate instructors Israa Ashoor and Zaid Sarhan </p>
