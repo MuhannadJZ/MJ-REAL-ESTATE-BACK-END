@@ -11,3 +11,12 @@ const createProperty = async (req, res) => {
     res.status(500).json({ message: 'Failed to create property' });
   }
 };
+const getAllProperties = async (req, res) => {
+  try {
+    const properties = await Property.find();
+    res.status(200).json(properties);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to load properties' });
+  }
+};
