@@ -23,3 +23,11 @@ The backend is designed to support a full-featured MERN stack application, handl
   <li>CORS – Cross-origin request handling</li>
   <li>Dotenv – For managing environment variables</li>
 </ul>
+
+
+<h2>Future Improvements</h2>
+
+<ul>
+  <li>Add filtering to GET requests</li>
+  <li>Role-based access (e.g., admin, agent)</li>
+</ul>
