@@ -1,53 +1,80 @@
 const Property = require('../models/Property');
 
-exports.createProperty = async (req, res) => {
+const createProperty = async (req, res) => {
   try {
-    const newProperty = new Property({
-      ...req.body, 
-      createdBy: req.user._id, // Attach user ID from authMiddleware
-    });
-    const savedProperty = await newProperty.save();
-    res.status(201).json(savedProperty);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const propertyData = req.body;
+    const newProperty = new Property(propertyData);
+    await newProperty.save();
+    res.status(201).json(newProperty);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to create property' });
   }
 };
 
-exports.getAllProperties = async (req, res) => {
+const getAllProperties = async (req, res) => {
   try {
-    const properties = await Property.find().populate('createdBy', 'name role'); // Populating the user info
+    const properties = await Property.find();
     res.status(200).json(properties);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to load properties' });
   }
 };
 
-exports.getPropertyById = async (req, res) => {
+const getPropertyById = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id).populate('createdBy', 'name role');
-    if (!property) return res.status(404).json({ message: 'Property not found' });
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({ message: 'Property not found' });
+    }
     res.status(200).json(property);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to retrieve property' });
   }
 };
 
-exports.updateProperty = async (req, res) => {
+const updateProperty = async (req, res) => {
   try {
-    const updatedProperty = await Property.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('createdBy', 'name role');
-    if (!updatedProperty) return res.status(404).json({ message: 'Property not found' });
+    const updatedProperty = await Property.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!updatedProperty) {
+
+      return res.status(404).json({ message: 'Property not found' });
+    }
     res.status(200).json(updatedProperty);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to update property' });
   }
 };
 
-exports.deleteProperty = async (req, res) => {
+const deleteProperty = async (req, res) => {
   try {
     const deletedProperty = await Property.findByIdAndDelete(req.params.id);
-    if (!deletedProperty) return res.status(404).json({ message: 'Property not found' });
-    res.status(200).json({ message: 'Property deleted' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    if (!deletedProperty) {
+
+      return res.status(404).json({ message: 'Property not found' });
+    }
+    res.status(200).json({ message: 'Property deleted successfully', deletedProperty });
+  } catch (error) {
+
+    console.error(error);
+    res.status(500).json({ error: error.message });
   }
 };
+
+module.exports = {
+  createProperty,
+  getAllProperties,
+  getPropertyById,
+  updateProperty,
+  deleteProperty,
+};
+
+
+

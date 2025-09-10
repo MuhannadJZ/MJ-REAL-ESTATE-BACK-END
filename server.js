@@ -22,9 +22,9 @@ mongoose.connect(mongoURI)
 
 app.get('/muh', (req, res) => res.json('SUCCESS'));
 
-app.use('/api/realestate', propertyRoutes);
+app.use('/api/properties', propertyRoutes);
 app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port${PORT}`);
 });

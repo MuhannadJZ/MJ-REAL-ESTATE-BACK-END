@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { createProperty, getAllProperties, getPropertyById, updateProperty, deleteProperty } = require('../controllers/propertyController');
-const authMiddleware = require('../middleware/authMiddleware');
 
-router.get('/', getAllProperties);
-router.get('/:id', getPropertyById);
-router.post('/', authMiddleware, createProperty); // Apply authMiddleware for POST request
-router.put('/:id', authMiddleware, updateProperty); 
-router.delete('/:id', authMiddleware, deleteProperty);
+const {
+  createProperty,
+  getAllProperties,
+  getPropertyById,
+  updateProperty,
+  deleteProperty
+} = require('../controllers/propertyController'); 
+
+router.get('/', getAllProperties);  // GET /api/properties
+router.get('/:id', getPropertyById);  // GET /api/properties/:id
+router.post('/', createProperty);  // POST /api/properties
+router.put('/:id', updateProperty);  // PUT /api/properties/:id
+router.delete('/:id', deleteProperty);  // DELETE /api/properties/:id
+
 module.exports = router;
