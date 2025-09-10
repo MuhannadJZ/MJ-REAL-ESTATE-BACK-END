@@ -49,3 +49,17 @@ const updateProperty = async (req, res) => {
     res.status(500).json({ message: 'Failed to update property' });
   }
 };
+const deleteProperty = async (req, res) => {
+  try {
+    const deletedProperty = await Property.findByIdAndDelete(req.params.id);
+    if (!deletedProperty) {
+
+      return res.status(404).json({ message: 'Property not found' });
+    }
+    res.status(200).json({ message: 'Property deleted successfully', deletedProperty });
+  } catch (error) {
+
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
