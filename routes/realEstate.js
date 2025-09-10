@@ -14,3 +14,5 @@ router.get('/:id', getPropertyById);  // GET /api/properties/:id
 router.post('/', createProperty);  // POST /api/properties
 router.put('/:id', updateProperty);  // PUT /api/properties/:id
 router.delete('/:id', deleteProperty);  // DELETE /api/properties/:id
+
+module.exports = router;
